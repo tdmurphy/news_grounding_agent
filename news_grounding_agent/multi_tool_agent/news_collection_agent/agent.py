@@ -1,15 +1,13 @@
-from google.adk import Agent
+from google.adk.agents import LlmAgent
 from google.adk.tools import google_search
-from news_grounding_agent.multi_tool_agent.news_collection_agent.collection_agent_prompt import COLLECTION_AGENT_PROMPT
+from .collection_agent_prompt import COLLECTION_AGENT_PROMPT
+from .pydantic_models import ArticleList
 
-class NewsCollectionAgent(Agent):
-    """
-    Agent for collecting news articles from various sources given a company name.
-    """
-
-    def __init__(self, name: str = "NewsCollectionAgent", **kwargs):
-        super().__init__(name=name, **kwargs)
-        self.description = "An agent that collects news articles from various sources."
-        self.model = "gemini-2.0-flash"
-        self.instruction = COLLECTION_AGENT_PROMPT
-        self.tools = [google_search]
+news_collection_agent = LlmAgent(
+    model="gemini-2.0-flash-latest",
+    name="news_collection_agent",
+    description="An agent that collects news articles from various sources and returns them as a structured list.",
+    instruction=COLLECTION_AGENT_PROMPT,
+    tools=[google_search],
+    response_model=ArticleList,
+)
