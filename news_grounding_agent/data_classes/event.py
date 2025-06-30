@@ -9,7 +9,7 @@ class Event:
     title: str
     date: datetime
     summary: str
-    article_list: list[News] = field(default_factory=list)
+    article_list: list[Article] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return asdict(self)
