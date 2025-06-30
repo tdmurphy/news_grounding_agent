@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 @dataclass
-class News:
+class Article:
     title: str
     url: str
     date: datetime
@@ -13,7 +13,7 @@ class News:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "News":
+    def from_dict(cls, data: dict) -> "Article":
         return cls(
             title=data["title"],
             url=data["url"],
